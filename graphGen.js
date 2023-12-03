@@ -11,9 +11,11 @@ function generateGraph(graphSize)
     g.setNode("Plot Start");
     g.setNode("Plot End");
     g.setNode("Game Properties", gameProps);
+    g.setNode("Weapons");
 
     var characterCount = 4;
-    var names = pickWithoutReplacement(characterIdentities, characterCount);
+    var names = pickWithoutReplacement(CHARACTER_IDENTITIES, characterCount);
+    console.log(WEAPON_TYPES);
 
     for (var i = 0; i < 4; i++)
     {
@@ -21,17 +23,55 @@ function generateGraph(graphSize)
         var params = {
             "Name": names[i].name, 
             "Pronouns": pickRandom(names[i].pronouns),
-            "Weapons": pickAtMost(WEAPON_TYPES, 3)
+            "Weapons": weaponDistribution()
         };
+        console.log(params["Weapons"]);
         var nodeName = "Character " + i;
         g.setNode(nodeName, params);
         g.setEdge("Characters", nodeName);
+        for (var j = 0; j < params["Weapons"].length; j++)
+        {
+            g.setNode(params["Weapons"][j]);
+            g.setEdge("Weapons", params["Weapons"][j]);
+        }
     }
 
-    // Item Nodes
-    // Start Node
-    // Loops
-    // End Node
+    var currentNode = "Plot Start";
+
+    for (var i = 0; i < graphSize; i++)
+    {
+        var TownDetails = {
+            "features": pickRandom(TOWN_FEATURES),
+            "biomes": pickRandom(TOWN_BIOMES),
+        };
+        var DungeonDetails = {
+            "main_obstacle": pickRandom(DUNGEON_OBSTACLES),
+            "terrain": pickRandom(DUNGEON_TERRAIN_TYPES),
+            "mob_types": pickAtMost(MOB_CLASSES, 5),
+        };
+        g.setNode("Town " + i, TownDetails);
+        g.setEdge(currentNode, "Town " + i);
+        g.setNode("Dungeon " + i, DungeonDetails);
+        g.setEdge("Town " + i, "Dungeon " + i);
+        currentNode = "Dungeon " + i;
+    }
+
+    g.setEdge(currentNode, "Plot End");
+
+    console.log(g.outEdges("Weapons"));
+    return g;
+}
+
+function weaponDistribution() {
+    var outArray = pickAtMost(WEAPON_TYPES, 3);
+    const DIE_ROLL = Math.random();
+    
+    if (DIE_ROLL <= .5)
+    {
+        return [outArray[0]];
+    }
+
+    return outArray;
 }
 
 function generateGameProperties() {

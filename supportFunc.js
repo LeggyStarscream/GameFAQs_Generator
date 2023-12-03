@@ -34,7 +34,6 @@ function pickRandom(itemArray) {
     return itemArray[Math.floor(Math.random() * itemArray.length)];
 };
 
-//
 function pickAtMost(itemArray, count) {
     const outArray = pickWithReplacement(itemArray, count);
     return outArray.filter((value, index) => outArray.indexOf(value) === index);
