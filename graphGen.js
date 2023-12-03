@@ -1,22 +1,29 @@
-let a = "A";
-var g = new graphlib.Graph();
-g.setNode("A");
 
-var raw_grammar = {
-	"name": ["Arjun","Yuuma","Darcy","Mia","Chiaki","Izzi","Azra","Lina"],
-	"animal": ["unicorn","raven","sparrow","scorpion","coyote","eagle","owl","lizard","zebra","duck","kitten"],
-	"mood": ["vexed","indignant","impassioned","wistful","astute","courteous"],
-	"story": ["#hero# traveled with her pet #heroPet#.  #hero# was never #mood#, for the #heroPet# was always too #mood#."],
-	"origin": ["#[hero:#name#][heroPet:#animal#]story#"]
-};
-
-function generate()
+// graphSize is the number of town-dungeon pairs we wanna generate
+function generateGraph(graphSize)
 {
-    var grammar = tracery.createGrammar(raw_grammar);
-    const element = document.getElementById("Output");
-    element.innerText = a;
-    if (g.hasNode("A"))
+    var g = new graphlib.Graph();
+
+    // These are orienting / category nodes
+    // Useful for getting easy access to classes of objects
+    g.setNode("Characters");
+    g.setNode("Plot Start");
+    g.setNode("Plot End");
+
+    for (var i = 0; i < 4; i++)
     {
-        a = a + " " + grammar.flatten('#origin#');
+        // Set up Character parameters
+        var params = {};
+        var nodeName = "Character " + i;
+        g.setNode(nodeName, params);
+        g.setEdge("Characters", nodeName);
     }
+
+
+    // To make:
+    // Character Nodes
+    // Item Nodes
+    // Start Node
+    // Loops
+    // End Node
 }
