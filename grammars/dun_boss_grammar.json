@@ -1,8 +1,16 @@
 {
-    "origin": ["#directionPhrase#\n#bossPhrase#"],
+    "origin": ["#introductionPhrase#\n#directionPhrase#\n#bossPhrase#"],
+    "introductionPhrase": ["#introPhrase#, #direction#"],
     "directionPhrase": ["#directionParagraph#", "#directionParagraph#\n#directionPhrase#"],
     "directionParagraph": [
         "#locationPhrase#, #direction#. #directions#\n#exitPhrase#"
+    ],
+    "introPhrase": [
+        "as soon as you enter",
+        "as you enter",
+        "first of all",
+        "starting out",
+        "after watching the cutscene"
     ],
     "locationPhrase": [
         "here",
@@ -28,6 +36,7 @@
         "you'll find a #feature# here",
         "go through the door nearby and interact with the #feature#",
         "examine the #feature# for some party dialog and fun quips",
+        "#cutscenePhrase#",
         "#obstacle#",
         "#obstacle#"
     ],
