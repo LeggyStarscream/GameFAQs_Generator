@@ -21,8 +21,17 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <button onclick="generate()">Generate</button>
-        <button onclick="switchColorMode()">Dark/Light Toggle</button>
+        <div class="section">
+            <!-- I wanted to do a little swatch but that's Too Hard-->
+            <div>DEBUG / DEV INFO</div>
+            <div class="equip_dun_grammar_text_light">Text from the "Just Got Equipment Heading To Dungeon" (equip_dun_grammar) has this color</div>
+            <div class="dun_boss_grammar_text_light">Text from the "Going Through The Dungeon To the Boss" (dun_boss_grammar) has this color</div>
+            <div class="key_town_grammar_text_light">Text from the "Going From The Dungeon To the Next Town" (key_town_grammar) has this color</div> 
+        </div>
+        <div>
+            <button onclick="generate()">Generate</button>
+            <button onclick="switchColorMode()">Dark/Light Toggle</button>
+        </div>
         <br>
         <div id="Output">Your walkthrough will appear here!</div>
         <div id="Credits">Made by FRICKING NERDS; powered by <a href="https://tracery.io/">Tracery</a> & <a href="https://github.com/dagrejs/graphlib">Graph Lib</a></div>
