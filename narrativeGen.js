@@ -1,27 +1,18 @@
-let a = "A";
-let text_buffer = "This Gude Was Written By No One\n";
-var raw_grammar = {
-	"name": ["Arjun","Yuuma","Darcy","Mia","Chiaki","Izzi","Azra","Lina"],
-	"animal": ["unicorn","raven","sparrow","scorpion","coyote","eagle","owl","lizard","zebra","duck","kitten"],
-	"mood": ["vexed","indignant","impassioned","wistful","astute","courteous"],
-	"story": ["#hero# traveled with her pet #heroPet#.  #hero# was never #mood#, for the #heroPet# was always too #mood#."],
-	"origin": ["#[hero:#name#][heroPet:#animal#]story#"]
-};
+let text_buffer = "This Guide Was Written By No One\n";
 
+
+/**
+ * Hook from the web page to Kick Off This Whole Deal
+ * We do a depth-first walk of the graph, using a callback on each edge to find a grammar,
+ * augment it with dynamic info from the nodes around it, and then expand it.
+ * 
+ * TODO: to load more context, we should have this callback be a function on an object, which'll
+ * let us hold onto object properties ala "this" to have more context (for recently seen things, for example)
+ */
 function generate()
 {
     let gen_g = generateGraph(4);
     walkGraph(gen_g, generateFromEdge);
-
-    //var g = new graphlib.Graph();
-    //g.setNode("A");
-    //var grammar = tracery.createGrammar(raw_grammar);
-    //const element = document.getElementById("Output");
-    //element.innerText = a;
-    //if (g.hasNode("A"))
-    //{
-    //    a = a + " " + grammar.flatten('#origin#');
-    //}
 }
 
 /**
@@ -54,11 +45,17 @@ function stepFrom(graph, start_node_label, callback){
                 },
                 edge: edge
             }
+            console.log(edge_ctx);
             callback(edge_ctx);
             stepFrom(graph, edge["w"], callback);
         });
 }
 
+/**
+ * Get a type from a node's label-- we sorta assume that node labels start with things like Town
+ * or Dungeon
+ * @param {String} label the label of a node
+ */
 function getTypeFromLabel(label){
     if (label.startsWith("Town")){
         return "Town"
@@ -77,6 +74,7 @@ function generateFromEdge(edge_ctx){
     let generatedText = ""
 
     if (startNodeType == "Town" && destNodeType == "Dungeon"){
+        
         let raw_grammar = equip_dun_grammar // not quite right, this grammar is for going from a equipment (weapon or armor) to a dungeon
                                     // simulating the "get new equipment in shop, then go find the next dungeon"
         // augment the grammar with extra context sensitive rules here!
@@ -86,17 +84,24 @@ function generateFromEdge(edge_ctx){
         let grammar = tracery.createGrammar(raw_grammar);
         generatedText = grammar.flatten("#origin#");
     } else if (startNodeType == "Dungeon" && destNodeType == "Town") {
+        generated_text = "";
+        // combining two grammars here because there's so much Good Stuff in the dungeon nodes
+        let raw_dun_boss_grammar = dun_boss_grammar
+        raw_dun_boss_grammar["dungeon"] = [edge_ctx.start.label]
+        // ... TODO augmenting goes here!
+        let cml_dun_boss_grammar = tracery.createGrammar(raw_dun_boss_grammar)
+        generatedText += cml_dun_boss_grammar.flatten("#origin#") + "\n";
+
         let raw_grammar = key_town_grammar // not quite right, this grammar is for going from a equipment (weapon or armor) to a dungeon
                                    // simulating the "get new equipment in shop, then go find the next dungeon"
         // augment the grammar... see the other arms here
-        raw_grammar["town"] = [edge_ctx.start.label]
-        raw_grammar["dungeon"] = [edge_ctx.dest.label]
+        raw_grammar["town"] = [edge_ctx.dest.label]
+        raw_grammar["dungeon"] = [edge_ctx.start.label]
 
         let grammar = tracery.createGrammar(raw_grammar);
-        generatedText = grammar.flatten("#origin#"); 
+        generatedText += grammar.flatten("#origin#") + "\n"; 
     }
 
-    console.log(generatedText);
     text_buffer += generatedText + "\n"
     element.innerText = text_buffer;
 }
