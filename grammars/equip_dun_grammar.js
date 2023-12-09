@@ -54,7 +54,7 @@ equip_dun_grammar = {
         "road",
         "path"
     ],
-    "feature": [
+    /*"feature": [
         "#elementalFeature#",
         "forest",
         "mountain",
@@ -66,7 +66,7 @@ equip_dun_grammar = {
         "desert",
         "coastline",
         "beach"
-    ],
+    ],*/
     "treasure": [
         "#visibility.a# chest containing #equipment.a#",
         "#visibility.a# chest containing #number# gold pieces",

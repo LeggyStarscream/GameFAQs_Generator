@@ -46,7 +46,9 @@ function stepFrom(graph, start_node_label, callback){
                 },
                 edge: edge
             }
+            console.log("Generating With Edge:");
             console.log(edge_ctx);
+            console.log("---------------------")
             callback(edge_ctx);
             stepFrom(graph, edge["w"], callback);
         });
@@ -81,7 +83,9 @@ function generateFromEdge(edge_ctx){
         // augment the grammar with extra context sensitive rules here!
         raw_grammar["town"] = [edge_ctx.start.label] // this could be any part of the context
         raw_grammar["dungeon"] = [edge_ctx.dest.label]
-
+        raw_grammar["feature"] = mapFeaturesFromTownBiomes[edge_ctx.start.info.biomes]
+        
+        console.log(raw_grammar);
         let grammar = tracery.createGrammar(raw_grammar);
         generatedText = grammar.flatten("#origin#");
     } else if (startNodeType == "Dungeon" && destNodeType == "Town") {
