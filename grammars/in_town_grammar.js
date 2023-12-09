@@ -207,6 +207,22 @@ const townBiomeDescriptions = {
     },
 };
 
+function inTownApplyNode(townNode) 
+{
+    const size = townSizeDescriptions[townNode["info"]["size"]];
+    townSizeKeys.forEach((key) => in_town_grammar[key] = size[key]);
+
+    const feature = townFeatureDescriptions[townNode["info"]["features"]];
+    townFeatureKeys.forEach((key) => in_town_grammar[key] = feature[key]);
+
+    const biome = townBiomeDescriptions[townNode["info"]["biomes"]];
+    townBiomeKeys.forEach((key) => in_town_grammar[key] = biome[key]);
+    
+    in_town_grammar["TownName"] = townNode["info"]["name"];
+
+    return in_town_grammar;
+}
+
 function testInTownGrammar()
 {
     const size = townSizeDescriptions[pickRandom(TOWN_SIZES)];

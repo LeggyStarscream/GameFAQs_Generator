@@ -63,6 +63,7 @@ function switchColorMode() {
         switchCSSClass("equip_dun_grammar_text_light", "equip_dun_grammar_text_dark")
         switchCSSClass("dun_boss_grammar_text_light", "dun_boss_grammar_text_dark")
         switchCSSClass("key_town_grammar_text_light", "key_town_grammar_text_dark")
+        switchCSSClass("town_grammar_text_light", "town_grammar_text_dark")
         //document.getElementById('Credits').style.backgroundColor = "#333333";
     }
     
@@ -75,6 +76,7 @@ function switchColorMode() {
         switchCSSClass("equip_dun_grammar_text_dark", "equip_dun_grammar_text_light")
         switchCSSClass("dun_boss_grammar_text_dark", "dun_boss_grammar_text_light")
         switchCSSClass("key_town_grammar_text_dark", "key_town_grammar_text_light")
+        switchCSSClass("town_grammar_text_dark", "town_grammar_text_light")
     }
 
     lightMode = !lightMode;

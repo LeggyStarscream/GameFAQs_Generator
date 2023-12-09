@@ -72,6 +72,12 @@ function generateFromEdge(edge_ctx){
     let destNodeType = getTypeFromLabel(edge_ctx.dest.label);
 
     if (startNodeType == "Town" && destNodeType == "Dungeon"){
+        let raw_town_grammar = inTownApplyNode(edge_ctx.start);
+
+        let town_grammar = tracery.createGrammar(raw_town_grammar);
+        let town_generatedText = town_grammar.flatten("#origin#")
+        createGeneratedTextDOMNode(town_generatedText, "town_grammar_text_light", "town_grammar_text_dark")
+
         let raw_grammar = equip_dun_grammar // not quite right, this grammar is for going from a equipment (weapon or armor) to a dungeon
                                             // simulating the "get new equipment in shop, then go find the next dungeon"
         // augment the grammar with extra context sensitive rules here!
@@ -92,7 +98,7 @@ function generateFromEdge(edge_ctx){
         let cml_dun_boss_grammar = tracery.createGrammar(raw_dun_boss_grammar)
         let generatedText = cml_dun_boss_grammar.flatten("#origin#") + "\n";
 
-        createGeneratedTextDOMNode(generatedText, "dun_boss_grammar_text_light", "dun_boss_grammar_text_light");
+        createGeneratedTextDOMNode(generatedText, "dun_boss_grammar_text_light", "dun_boss_grammar_text_dark");
         
         let raw_grammar = key_town_grammar // not quite right, this grammar is for going from a equipment (weapon or armor) to a dungeon
                                    // simulating the "get new equipment in shop, then go find the next dungeon"
