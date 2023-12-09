@@ -37,4 +37,15 @@ function pickRandom(itemArray) {
 function pickAtMost(itemArray, count) {
     const outArray = pickWithReplacement(itemArray, count);
     return outArray.filter((value, index) => outArray.indexOf(value) === index);
-}
+};
+
+function pickAtMost_Evenly(itemArray, count) {
+    const numberChosen = Math.floor(Math.random() * count) + 1;
+    const outArray = pickWithReplacement(itemArray, numberChosen);
+    return outArray.filter((value, index) => outArray.indexOf(value) === index);
+};
+
+function pickNumberWithinRange(itemArray, min, max) {
+    const randomIndex = Math.floor(Math.random() * (1+max-min)) + min;
+    return pickWithoutReplacement(itemArray, randomIndex);
+};

@@ -1,5 +1,8 @@
 
 // graphSize is the number of town-dungeon pairs we wanna generate
+
+const CHAR_COUNT = 4;
+
 function generateGraph(graphSize)
 {
     var g = new graphlib.Graph();
@@ -13,17 +16,19 @@ function generateGraph(graphSize)
     g.setNode("Game Properties", gameProps);
     g.setNode("Weapons");
 
-    var characterCount = 4;
     var names = pickWithoutReplacement(CHARACTER_IDENTITIES, characterCount);
     console.log(WEAPON_TYPES);
+    console.log(gameProps["usedWeaponTypes"]);
 
-    for (var i = 0; i < 4; i++)
+    var weapons = weaponDistribution(gameProps["usedWeaponTypes"]);
+
+    for (var i = 0; i < CHAR_COUNT; i++)
     {
         // Set up Character parameters
         var params = {
             "Name": names[i].name, 
             "Pronouns": pickRandom(names[i].pronouns),
-            "Weapons": weaponDistribution()
+            "Weapons": weapons[i]
         };
         console.log(params["Weapons"]);
         var nodeName = "Character " + i;
@@ -48,6 +53,11 @@ function generateGraph(graphSize)
             "main_obstacle": pickRandom(DUNGEON_OBSTACLES),
             "terrain": pickRandom(DUNGEON_TERRAIN_TYPES),
             "mob_types": pickAtMost(MOB_CLASSES, 5),
+            "boss_data": {
+                "mob_type": pickRandom(MOB_CLASSES),
+                "weakness": pickAtMost_Evenly(ELEMENTS, 3),
+                "resistance": pickAtMost_Evenly(ELEMENTS, 2),
+            }
         };
         g.setNode("Town " + i, TownDetails);
         g.setEdge(currentNode, "Town " + i);
@@ -62,10 +72,28 @@ function generateGraph(graphSize)
     return g;
 }
 
-function weaponDistribution() {
-    var outArray = pickAtMost(WEAPON_TYPES, 3);
-    const DIE_ROLL = Math.random();
+function weaponDistribution(weaponList) {
+
+    const equipTypes = Math.random();
     
+    if (equipTypes <= .5)
+    {
+        var tempArray = pickWithoutReplacement(weaponList,CHAR_COUNT);
+        return tempArray.map((item) => [item]);
+    }
+    else {
+        var outArray = [];
+        for (var i = 0; i < CHAR_COUNT; i++)
+        {
+            // Varies between [0,1.5)
+            const randVal = Math.random() +  (.5 * Math.random());
+            const weaponsUsed = Math.floor(2 * randVal) + 1;
+            outArray.append(pickWithoutReplacement(weaponList,weaponsUsed));
+        }
+    }
+
+    var outArray = pickAtMost(weaponList, 3);
+    const DIE_ROLL = Math.random();
     if (DIE_ROLL <= .5)
     {
         return [outArray[0]];
@@ -75,5 +103,7 @@ function weaponDistribution() {
 }
 
 function generateGameProperties() {
-    return {};
+    return {
+        usedWeaponTypes: pickNumberWithinRange(WEAPON_TYPES, 5, 8)
+    };
 };

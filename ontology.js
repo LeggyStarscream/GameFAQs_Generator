@@ -20,7 +20,8 @@ const ELEMENTS = [
     "Darkness",
     "Wood",
     "Metal",
-    "Void"
+    "Void",
+    "None",
 ];
 
 const STATUS_EFFECTS = [
