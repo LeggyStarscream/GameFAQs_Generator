@@ -84,7 +84,8 @@ function generateFromEdge(edge_ctx){
         raw_grammar["town"] = [edge_ctx.start.label] // this could be any part of the context
         raw_grammar["dungeon"] = [edge_ctx.dest.label]
         raw_grammar["feature"] = mapFeaturesFromTownBiomes[edge_ctx.start.info.biomes]
-        
+        raw_grammar["animal"] = mapAnimalsFromTownBiomes[edge_ctx.start.info.biomes]
+    
         console.log(raw_grammar);
         let grammar = tracery.createGrammar(raw_grammar);
         generatedText = grammar.flatten("#origin#");

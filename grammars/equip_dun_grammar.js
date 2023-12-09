@@ -38,7 +38,7 @@ equip_dun_grammar = {
         "watch the cutscene between #character# and #character#",
         "watch the cutscene between everyone in the party",
         "be sure to pet the friendly #animal# along the way",
-        "wait for the herd of #animal.s# to cross your path, then keep going",
+        "wait for the group of #animal.s# to cross your path, then keep going",
         "watch the emotional cutscene. #character# isn't having a great day",
         "be dazzled by that sweet sunset",
         "there's some special encounters here, be sure to get all of them for the #bestiary#",
@@ -54,19 +54,6 @@ equip_dun_grammar = {
         "road",
         "path"
     ],
-    /*"feature": [
-        "#elementalFeature#",
-        "forest",
-        "mountain",
-        "mountain range",
-        "bridge",
-        "river",
-        "lake",
-        "wide bridge",
-        "desert",
-        "coastline",
-        "beach"
-    ],*/
     "treasure": [
         "#visibility.a# chest containing #equipment.a#",
         "#visibility.a# chest containing #number# gold pieces",
@@ -100,15 +87,5 @@ equip_dun_grammar = {
     ],
     "compassDirection": [
         "north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"
-    ],
-    "animal": [
-        "horse",
-        "cow",
-        "unicorn",
-        "dog",
-        "cat",
-        "pegasus",
-        "\"dog\"",
-        "bonnacoon" 
     ]
 }
