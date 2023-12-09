@@ -1,5 +1,7 @@
 // Support Functions
 
+var lightMode = true;
+
 function pickWithReplacement(itemArray, count) {
     const size = itemArray.length;
     var outArray = [];
@@ -49,3 +51,21 @@ function pickNumberWithinRange(itemArray, min, max) {
     const randomIndex = Math.floor(Math.random() * (1+max-min)) + min;
     return pickWithoutReplacement(itemArray, randomIndex);
 };
+
+function switchColorMode() {
+    if (lightMode) { //Switch to Dark Mode
+        document.body.style.backgroundColor = "#333333";
+        document.body.style.color = "#dddddd";
+        document.getElementById('Output').style.borderColor = "#dddddd";
+        //document.getElementById('Credits').style.backgroundColor = "#333333";
+    }
+    
+    else { //Switch to Light Mode
+        document.body.style.backgroundColor = "#cccccc";
+        document.body.style.color = "#000000";
+        document.getElementById('Output').style.borderColor = "#000000";
+        //document.getElementById('Credits').style.backgroundColor = "#cccccc";
+    }
+
+    lightMode = !lightMode;
+}
