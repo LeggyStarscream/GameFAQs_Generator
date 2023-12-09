@@ -31,7 +31,7 @@ function generateGraph(graphSize)
         };
         var nodeName = "Character " + i;
         g.setNode(nodeName, params);
-        g.setEdge("Characters", nodeName);
+        g.setEdge("Characters", nodeName, "Character");
         for (var j = 0; j < params["Weapons"].length; j++)
         {
             g.setNode(params["Weapons"][j]);
@@ -47,6 +47,9 @@ function generateGraph(graphSize)
             "features": pickRandom(TOWN_FEATURES),
             "biomes": pickRandom(TOWN_BIOMES),
         };
+
+        // Note: the boss_data on DungeonDetails does not agree with the boss data on the boss node
+        // This is left as is unless we refactor out referencing the boss_data field of the DungeonDetails.
         var DungeonDetails = {
             "main_obstacle": pickRandom(DUNGEON_OBSTACLES),
             "terrain": pickRandom(DUNGEON_TERRAIN_TYPES),
@@ -57,10 +60,15 @@ function generateGraph(graphSize)
                 "resistance": pickAtMost_Evenly(ELEMENTS, 2),
             }
         };
+        var BossDetails = generateBossData(i, DungeonDetails);
         g.setNode("Town " + i, TownDetails);
         g.setEdge(currentNode, "Town " + i, "Plot Step");
+
         g.setNode("Dungeon " + i, DungeonDetails);
         g.setEdge("Town " + i, "Dungeon " + i, "Plot Step");
+
+        g.setNode("Boss " + i, BossDetails);
+        g.setEdge("Dungeon " + i, "Boss " + i, "Dungeon Boss");
         currentNode = "Dungeon " + i;
     }
 
@@ -68,6 +76,52 @@ function generateGraph(graphSize)
 
     console.log(g.outEdges("Weapons"));
     return g;
+}
+
+function generateBossData(max_number, DungeonDetails) {
+    var attackCount = Math.floor(Math.random() * Math.min(5,max_number));
+    var elementalAffinity = pickRandom([pickRandom(ELEMENTS),pickRandom(ELEMENTS),"None","None"]);
+    var mobType = pickRandom(MOB_CLASSES);
+    var specials = [];
+    for (var i = 0; i < attackCount; i++)
+    {
+        var attackType = pickRandom(BOSS_SPECIAL_EFFECTS);
+        if (attackType === "Status Effect") {
+            specials.push({
+                "attackType": attackType,
+                "constraint": pickRandom(BOSS_SPECIAL_CONSTRAINTS),
+                "status_inflicted": pickRandom(STATUS_EFFECTS)
+            });
+        }
+        else if (attackType === "Call Adds") {
+            specials.push({
+                "attackType": attackType,
+                "constraint": pickRandom(BOSS_SPECIAL_CONSTRAINTS),
+                "adds_called": pickRandom(DungeonDetails["mob_types"] + [mobType])
+            });
+        }
+        else if (attackType === "Buff Self") {
+            specials.push({
+                "attackType": attackType,
+                "constraint": pickRandom(BOSS_SPECIAL_CONSTRAINTS),
+                "buff_type": pickRandom(BOSS_BUFF_TYPES)
+            });
+        }
+        else {
+            specials.push({
+                "attackType": attackType,
+                "constraint": pickRandom(BOSS_SPECIAL_CONSTRAINTS),
+                "damageType": pickRandom(elementalAffinity, "None")
+            });
+        }
+    }
+    var outData = {
+        "mob_type": mobType,
+        "weakness": pickNumberWithinRange(ELEMENTS + STATUS_EFFECTS, 1, 5),
+        "resistance": [elementalAffinity],
+        "special_attacks": specials
+    };
+    return outData;
 }
 
 function weaponDistribution(weaponList) {
