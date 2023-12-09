@@ -1,12 +1,26 @@
 // A collection of data that we can pull from for generation
 
 const CHARACTER_IDENTITIES = [
-    {name: "Jack", pronouns: ["he", "they"]},
-    {name: "Isaac", pronouns: ["he", "they"]},
+    {name: "Alison", pronouns: ["she", "they"]},
+    {name: "Allison", pronouns: ["she", "they"]},
+    {name: "Clair", pronouns: ["she", "they"]},
+    {name: "Claire", pronouns: ["she", "they"]},
+    {name: "Cloud", pronouns: ["he", "she", "they"]},
     {name: "Ike", pronouns: ["he", "they"]},
+    {name: "Isaac", pronouns: ["he", "they"]},
+    {name: "Jack", pronouns: ["he", "they"]},
+    {name: "Jennifer", pronouns: ["she", "they"]},
     {name: "Jill", pronouns: ["she", "they"]},
     {name: "Mia", pronouns: ["she", "they"]},
+    {name: "Melody", pronouns: ["she", "they"]},
     {name: "Serina", pronouns: ["she", "they"]},
+    {name: "Squall", pronouns: ["she", "they"]},
+    {name: "Stella", pronouns: ["she", "they"]},
+    {name: "Terra", pronouns: ["he", "she", "they"]},
+    {name: "Tifa", pronouns: ["she", "they"]},
+    {name: "Tina", pronouns: ["she", "they"]},
+    {name: "Zoe", pronouns: ["she", "they"]},
+    {name: "Zoey", pronouns: ["she", "they"]},
 ];
 
 const ELEMENTS = [
@@ -117,12 +131,22 @@ const BOSS_SPECIAL_EFFECTS = [
     "Big Hit",
     "AoE",
     "Status Effect",
-    "Call Adds"
+    "Call Adds",
+    "Buff Self"
 ]
 
 const BOSS_SPECIAL_CONSTRAINTS = [
     "Obvious Telegraph",
     "Blockable",
     "Countdown",
-    "Counter with Weakness"
+    "Counter with Weakness",
+    "None"
+]
+
+const BOSS_BUFF_TYPES = [
+    "Self-heal",
+    "Damage Up",
+    "Defense Up",
+    "Evasion Up",
+    "Remove Debuffs"
 ]
