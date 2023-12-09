@@ -81,7 +81,8 @@ function generateFromEdge(edge_ctx){
         raw_grammar["animal"] = mapWorldMapAnimalsFromBiomes[edge_ctx.start.info.biomes]
     
         let grammar = tracery.createGrammar(raw_grammar);
-        let generatedText = grammar.flatten("#origin#")
+        let generatedText = grammar.flatten("#origin#");
+        generatedText = capitalizeSentences(generatedText);
         createGeneratedTextDOMNode(generatedText, "equip_dun_grammar_text_light", "equip_dun_grammar_text_dark")
     
     } else if (startNodeType == "Dungeon" && destNodeType == "Town") {
@@ -91,7 +92,7 @@ function generateFromEdge(edge_ctx){
         // ... TODO augmenting goes here!
         let cml_dun_boss_grammar = tracery.createGrammar(raw_dun_boss_grammar)
         let generatedText = cml_dun_boss_grammar.flatten("#origin#") + "\n";
-
+        generatedText = capitalizeSentences(generatedText);
         createGeneratedTextDOMNode(generatedText, "dun_boss_grammar_text_light", "dun_boss_grammar_text_light");
         
         let raw_grammar = key_town_grammar // not quite right, this grammar is for going from a equipment (weapon or armor) to a dungeon
@@ -102,10 +103,19 @@ function generateFromEdge(edge_ctx){
 
         let grammar = tracery.createGrammar(raw_grammar);
         generatedText = grammar.flatten("#origin#") + "\n";
+        generatedText = capitalizeSentences(generatedText);
         createGeneratedTextDOMNode(generatedText, "key_town_grammar_text_light", "key_town_grammar_text_dark"); 
     }
 }
 
+/**
+ * A "post processing" step for generated text-- this one makes sure that all sentences start with a
+ * capitalized letter
+ * @param {String} generatedText text we just generated
+ */
+function capitalizeSentences(generatedText) {
+   return generatedText.replace(/(?<=(?:^|[.?!])\W*)[a-z]/g, i => i.toUpperCase()); 
+}
 /**
  * Clear out all the currently generated text
  */
