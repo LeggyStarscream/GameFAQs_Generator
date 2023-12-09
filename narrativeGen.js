@@ -11,6 +11,7 @@ let text_buffer = "This Guide Was Written By No One\n";
  */
 function generate()
 {
+    text_buffer = "";
     let gen_g = generateGraph(4);
     walkGraph(gen_g, generateFromEdge);
 }
