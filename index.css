@@ -8,8 +8,10 @@ body {
     padding: 16px;
     margin-top: 16px;
     border:1px solid #000000;
-    max-width: 800px;
-    display: inline-block
+    max-width: 1200px;
+    max-height: calc(100% - 120px);
+    display: inline-block;
+    overflow-y: scroll;
 }
 
 #Credits {
@@ -20,4 +22,7 @@ body {
     padding: 16px;
     width: 100%;
     background-color: #cccccc;
+    border-style: solid;
+    border-width: 1px 0px 0px 0px;
+    border-color: #000;
 }
