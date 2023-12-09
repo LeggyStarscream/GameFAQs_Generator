@@ -61,9 +61,9 @@ function generateGraph(graphSize)
             }
         };
         g.setNode("Town " + i, TownDetails);
-        g.setEdge(currentNode, "Town " + i);
+        g.setEdge(currentNode, "Town " + i, "Plot Step");
         g.setNode("Dungeon " + i, DungeonDetails);
-        g.setEdge("Town " + i, "Dungeon " + i);
+        g.setEdge("Town " + i, "Dungeon " + i, "Plot Step");
         currentNode = "Dungeon " + i;
     }
 

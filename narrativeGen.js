@@ -10,13 +10,17 @@ var raw_grammar = {
 
 function generate()
 {
-    var g = new graphlib.Graph();
-    g.setNode("A");
-    var grammar = tracery.createGrammar(raw_grammar);
-    const element = document.getElementById("Output");
-    element.innerText = a;
-    if (g.hasNode("A"))
+    for (var i = 0; i < 200; i++)
     {
-        a = a + " " + grammar.flatten('#origin#');
+        var g = new graphlib.Graph();
+        g.setNode("A");
+        var grammar = tracery.createGrammar(raw_grammar);
+        const element = document.getElementById("Output");
+        element.innerText = a;
+        if (g.hasNode("A"))
+        {
+            a = a + " " + grammar.flatten('#origin#');
+        }
     }
+    
 }
