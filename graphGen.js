@@ -5,6 +5,7 @@ const CHAR_COUNT = 4;
 
 function generateGraph(graphSize)
 {
+
     var g = new graphlib.Graph();
     var gameProps = generateGameProperties();
 
@@ -16,7 +17,7 @@ function generateGraph(graphSize)
     g.setNode("Game Properties", gameProps);
     g.setNode("Weapons");
 
-    var names = pickWithoutReplacement(CHARACTER_IDENTITIES, characterCount);
+    var names = pickWithoutReplacement(CHARACTER_IDENTITIES, CHAR_COUNT);
     console.log(WEAPON_TYPES);
     console.log(gameProps["usedWeaponTypes"]);
 
@@ -88,7 +89,7 @@ function weaponDistribution(weaponList) {
             // Varies between [0,1.5)
             const randVal = Math.random() +  (.5 * Math.random());
             const weaponsUsed = Math.floor(2 * randVal) + 1;
-            outArray.append(pickWithoutReplacement(weaponList,weaponsUsed));
+            outArray.push(pickWithoutReplacement(weaponList,weaponsUsed));
         }
     }
 
