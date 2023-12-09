@@ -52,6 +52,8 @@ function pickNumberWithinRange(itemArray, min, max) {
     return pickWithoutReplacement(itemArray, randomIndex);
 };
 
+// Not a random generation support function, but support none the less
+
 function switchColorMode() {
     if (lightMode) { //Switch to Dark Mode
         document.body.style.backgroundColor = "#333333";

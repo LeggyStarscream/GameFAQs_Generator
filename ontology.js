@@ -88,7 +88,14 @@ const TOWN_BIOMES = [
     "Tundra",
     "Swamp",
     "Forest"
-]
+];
+
+const TOWN_SIZES = [
+    "Hamlet",
+    "Village",
+    "Small Town",
+    "City",
+];
 
 const DUNGEON_OBSTACLES = [
     "Maze",
@@ -96,7 +103,7 @@ const DUNGEON_OBSTACLES = [
     "Puzzle",
     "Traps",
     "Time Limit"
-]
+];
 
 const DUNGEON_TERRAIN_TYPES = [
     "Cave",
@@ -107,7 +114,7 @@ const DUNGEON_TERRAIN_TYPES = [
     "Underwater",
     "Island",
     "Mountain"
-]
+];
 
 const MOB_CLASSES = [
     "Wolves",
@@ -125,7 +132,7 @@ const MOB_CLASSES = [
     "Mages",
     "Knights",
     "Mushrooms"
-]
+];
 
 const BOSS_SPECIAL_EFFECTS = [
     "Big Hit",
@@ -133,7 +140,7 @@ const BOSS_SPECIAL_EFFECTS = [
     "Status Effect",
     "Call Adds",
     "Buff Self"
-]
+];
 
 const BOSS_SPECIAL_CONSTRAINTS = [
     "Obvious Telegraph",
@@ -141,7 +148,7 @@ const BOSS_SPECIAL_CONSTRAINTS = [
     "Countdown",
     "Counter with Weakness",
     "None"
-]
+];
 
 const BOSS_BUFF_TYPES = [
     "Self-heal",
@@ -149,4 +156,4 @@ const BOSS_BUFF_TYPES = [
     "Defense Up",
     "Evasion Up",
     "Remove Debuffs"
-]
+];
