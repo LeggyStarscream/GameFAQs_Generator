@@ -47,3 +47,61 @@ mapFeaturesFromTownBiomes = {
         "meadow"
     ]
 }
+/*
+"animal": [
+        "horse",
+        "cow",
+        "unicorn",
+        "dog",
+        "cat",
+        "pegasus",
+        "\"dog\"",
+        "bonnacoon" 
+    ]*/
+/**
+ * List of overworld / World Map animals that are derived from town biomes
+ */
+mapWorldMapAnimalsFromBiomes = {
+    "Grassland": [
+        "cow",
+        "horses",
+        "plains unicorn",
+        "gopher",
+        "bunny"
+    ],
+    "Mountains": [
+        "goat",
+        "mouse",
+        "hawk",
+        "roc",
+        "mountain jackalope"
+    ],
+    "Tropical": [
+        "lizard",
+        "dragonfly",
+        "flying fish",
+        "monkey",
+        "brightly colored weird bird"
+    ],
+    "Tundra": [
+        "white bear",
+        "penguin",
+        "snow unicorn",
+        "wolf",
+        "seal"
+    ],
+    "Swamp": [
+        "hippocampus",
+        "bog mice",
+        "crocodile",
+        "lizard",
+        "newt"
+    ],
+    "Forest": [
+        "deer",
+        "bunny",
+        "wolf",
+        "monkey",
+        "peryton"
+    ]
+}

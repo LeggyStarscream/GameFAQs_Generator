@@ -59,13 +59,38 @@ function switchColorMode() {
         document.body.style.backgroundColor = "#333333";
         document.body.style.color = "#dddddd";
         document.getElementById('Output').style.borderColor = "#dddddd";
+        
+        switchCSSClass("equip_dun_grammar_text_light", "equip_dun_grammar_text_dark")
+        switchCSSClass("dun_boss_grammar_text_light", "dun_boss_grammar_text_dark")
+        switchCSSClass("key_town_grammar_text_light", "key_town_grammar_text_dark")
+        //document.getElementById('Credits').style.backgroundColor = "#333333";
     }
     
     else { //Switch to Light Mode
         document.body.style.backgroundColor = "#cccccc";
         document.body.style.color = "#000000";
         document.getElementById('Output').style.borderColor = "#000000";
+        //document.getElementById('Credits').style.backgroundColor = "#cccccc";
+
+        switchCSSClass("equip_dun_grammar_text_dark", "equip_dun_grammar_text_light")
+        switchCSSClass("dun_boss_grammar_text_dark", "dun_boss_grammar_text_light")
+        switchCSSClass("key_town_grammar_text_dark", "key_town_grammar_text_light")
     }
 
     lightMode = !lightMode;
+}
+
+/**
+ * utility function to switch _all_ the instances of the from CSS class to the to CSS class
+ * @param {String} fromClass current CSS class
+ * @param {String} toClass CSS class to switch ingot
+ */
+function switchCSSClass(fromClass, toClass) {
+    // this is required because fucking around with a raw HTML collection can cause
+    // stuff to not render-- so we select and copy into a static array so stuff won't
+    // randomly drop from the collection mid-iteration
+    Array.from(document.getElementsByClassName(fromClass))
+        .map((element, _index, _list) => {
+            element.setAttribute("class", toClass)
+        })
 }

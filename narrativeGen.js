@@ -1,6 +1,3 @@
-let text_buffer = "This Guide Was Written By No One\n";
-
-
 /**
  * Hook from the web page to Kick Off This Whole Deal
  * We do a depth-first walk of the graph, using a callback on each edge to find a grammar,
@@ -11,7 +8,7 @@ let text_buffer = "This Guide Was Written By No One\n";
  */
 function generate()
 {
-    text_buffer = "";
+    clearGeneratedText();
     let gen_g = generateGraph(4);
     walkGraph(gen_g, generateFromEdge);
 }
@@ -73,30 +70,30 @@ function getTypeFromLabel(label){
 function generateFromEdge(edge_ctx){
     let startNodeType = getTypeFromLabel(edge_ctx.start.label);
     let destNodeType = getTypeFromLabel(edge_ctx.dest.label);
-    const element = document.getElementById("Output");
-    let generatedText = ""
 
     if (startNodeType == "Town" && destNodeType == "Dungeon"){
-        
         let raw_grammar = equip_dun_grammar // not quite right, this grammar is for going from a equipment (weapon or armor) to a dungeon
-                                    // simulating the "get new equipment in shop, then go find the next dungeon"
+                                            // simulating the "get new equipment in shop, then go find the next dungeon"
         // augment the grammar with extra context sensitive rules here!
         raw_grammar["town"] = [edge_ctx.start.label] // this could be any part of the context
         raw_grammar["dungeon"] = [edge_ctx.dest.label]
         raw_grammar["feature"] = mapFeaturesFromTownBiomes[edge_ctx.start.info.biomes]
-        
-        console.log(raw_grammar);
+        raw_grammar["animal"] = mapWorldMapAnimalsFromBiomes[edge_ctx.start.info.biomes]
+    
         let grammar = tracery.createGrammar(raw_grammar);
-        generatedText = grammar.flatten("#origin#");
+        let generatedText = grammar.flatten("#origin#")
+        createGeneratedTextDOMNode(generatedText, "equip_dun_grammar_text_light", "equip_dun_grammar_text_dark")
+    
     } else if (startNodeType == "Dungeon" && destNodeType == "Town") {
-        generated_text = "";
         // combining two grammars here because there's so much Good Stuff in the dungeon nodes
         let raw_dun_boss_grammar = dun_boss_grammar
         raw_dun_boss_grammar["dungeon"] = [edge_ctx.start.label]
         // ... TODO augmenting goes here!
         let cml_dun_boss_grammar = tracery.createGrammar(raw_dun_boss_grammar)
-        generatedText += cml_dun_boss_grammar.flatten("#origin#") + "\n";
+        let generatedText = cml_dun_boss_grammar.flatten("#origin#") + "\n";
 
+        createGeneratedTextDOMNode(generatedText, "dun_boss_grammar_text_light", "dun_boss_grammar_text_light");
+        
         let raw_grammar = key_town_grammar // not quite right, this grammar is for going from a equipment (weapon or armor) to a dungeon
                                    // simulating the "get new equipment in shop, then go find the next dungeon"
         // augment the grammar... see the other arms here
@@ -104,9 +101,34 @@ function generateFromEdge(edge_ctx){
         raw_grammar["dungeon"] = [edge_ctx.start.label]
 
         let grammar = tracery.createGrammar(raw_grammar);
-        generatedText += grammar.flatten("#origin#") + "\n"; 
+        generatedText = grammar.flatten("#origin#") + "\n";
+        createGeneratedTextDOMNode(generatedText, "key_town_grammar_text_light", "key_town_grammar_text_dark"); 
     }
+}
 
-    text_buffer += generatedText + "\n"
-    element.innerText = text_buffer;
+/**
+ * Clear out all the currently generated text
+ */
+function clearGeneratedText(){
+    const element = document.getElementById("Output");
+    while(element.hasChildNodes()){
+        element.removeChild(element.firstChild);
+    }
+}
+
+/**
+ * Modify the DOM tree to add in the text nodes for the generative text we just made
+ * @param {String} text the actual generated text
+ * @param {String} lightModeStyle CSS class for how this text should be styled for light mode
+ * @param {String} darkModeStyle CSS class for how this text should be styled for dark mode
+ */
+function createGeneratedTextDOMNode(text, lightModeStyle, darkModeStyle){
+    const element = document.getElementById("Output");
+    const para = document.createElement("p");
+    // I think this is in the global scope?
+    para.setAttribute("class", lightMode ? lightModeStyle : darkModeStyle)
+        
+    const textNode = document.createTextNode(text)
+    para.appendChild(textNode)
+    element.appendChild(para)
 }
