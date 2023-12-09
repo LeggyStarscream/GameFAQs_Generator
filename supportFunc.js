@@ -52,19 +52,19 @@ function pickNumberWithinRange(itemArray, min, max) {
     return pickWithoutReplacement(itemArray, randomIndex);
 };
 
+// Not a random generation support function, but support none the less
+
 function switchColorMode() {
     if (lightMode) { //Switch to Dark Mode
         document.body.style.backgroundColor = "#333333";
         document.body.style.color = "#dddddd";
         document.getElementById('Output').style.borderColor = "#dddddd";
-        //document.getElementById('Credits').style.backgroundColor = "#333333";
     }
     
     else { //Switch to Light Mode
         document.body.style.backgroundColor = "#cccccc";
         document.body.style.color = "#000000";
         document.getElementById('Output').style.borderColor = "#000000";
-        //document.getElementById('Credits').style.backgroundColor = "#cccccc";
     }
 
     lightMode = !lightMode;
