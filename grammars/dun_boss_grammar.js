@@ -1,4 +1,4 @@
-{
+dun_boss_grammar = {
     "origin": ["#introductionPhrase#\n#directionPhrase#\n#bossPhrase#"],
     "introductionPhrase": ["#introPhrase#, #direction#"],
     "directionPhrase": ["#directionParagraph#", "#directionParagraph#\n#directionPhrase#"],

@@ -1,4 +1,4 @@
-{
+key_town_grammar = {
     "origin": ["#introPhrase#. #worldMapDirections#. #mapConclusion#"],
     "introPhrase": [
         "after getting out of #dungeon#, you'll be back on the #worldName#",

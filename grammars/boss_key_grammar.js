@@ -1,4 +1,4 @@
-{
+boss_key_grammar = {
     "origin": ["#introParagraph#\n#battleDirectionsPhrase#\n#rewardsPhrase#"],
     "introParagraph": [
         "#attackElaboration#",

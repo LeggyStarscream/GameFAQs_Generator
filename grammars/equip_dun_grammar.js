@@ -1,4 +1,4 @@
-{
+equip_dun_grammar = {
     "origin": ["#introPhrase#. #worldMapDirections#. #mapConclusion#"],
     "introPhrase": [
         "with #equipment# purchased, it's time to head to #dungeon#. Exit back to the #worldName#",
