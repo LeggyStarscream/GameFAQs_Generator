@@ -18,8 +18,6 @@ function generateGraph(graphSize)
     g.setNode("Weapons");
 
     var names = pickWithoutReplacement(CHARACTER_IDENTITIES, CHAR_COUNT);
-    console.log(WEAPON_TYPES);
-    console.log(gameProps["usedWeaponTypes"]);
 
     var weapons = weaponDistribution(gameProps["usedWeaponTypes"]);
 
@@ -31,7 +29,6 @@ function generateGraph(graphSize)
             "Pronouns": pickRandom(names[i].pronouns),
             "Weapons": weapons[i]
         };
-        console.log(params["Weapons"]);
         var nodeName = "Character " + i;
         g.setNode(nodeName, params);
         g.setEdge("Characters", nodeName);
@@ -91,13 +88,6 @@ function weaponDistribution(weaponList) {
             const weaponsUsed = Math.floor(2 * randVal) + 1;
             outArray.push(pickWithoutReplacement(weaponList,weaponsUsed));
         }
-    }
-
-    var outArray = pickAtMost(weaponList, 3);
-    const DIE_ROLL = Math.random();
-    if (DIE_ROLL <= .5)
-    {
-        return [outArray[0]];
     }
 
     return outArray;
