@@ -46,11 +46,10 @@ function generateGraph(graphSize)
         var TownDetails = {
             "features": pickRandom(TOWN_FEATURES),
             "biomes": pickRandom(TOWN_BIOMES),
-            "name": "",
             "size": pickRandom(TOWN_SIZES),
         };
 
-        TownDetails["name"] = TownDetails["biomes"] + TownDetails["features"];
+        TownDetails["name"] = TownDetails["biomes"] + TownDetails["features"].toLowerCase();
 
         // Note: the boss_data on DungeonDetails does not agree with the boss data on the boss node
         // This is left as is unless we refactor out referencing the boss_data field of the DungeonDetails.

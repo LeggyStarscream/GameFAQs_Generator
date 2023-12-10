@@ -9,7 +9,7 @@ body {
     margin-top: 16px;
     border:1px solid #000000;
     max-width: 1200px;
-    max-height: calc(100% - 120px);
+    max-height: calc(100% - 300px);
     display: inline-block;
     overflow-y: scroll;
 }
@@ -32,7 +32,7 @@ body {
     margin-top: 16px;
     border:1px solid #000000;
     max-width: 1200px;
-    max-height: calc(100% - 120px);
+    max-height: calc(100% - 300px);
     display: inline-block;
 }
 
@@ -54,5 +54,11 @@ body {
 }
 .key_town_grammar_text_dark {
     color: #9ADE7B
+}
+.town_grammar_text_light {
+    color: #8b653a
+}
+.town_grammar_text_dark {
+    color: #f1b253
 }
 
